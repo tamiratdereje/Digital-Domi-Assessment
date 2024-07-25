@@ -1,3 +1,4 @@
+import 'package:digital_domi_assessment/constants/app_colors.dart';
 import 'package:digital_domi_assessment/constants/app_strings.dart';
 import 'package:digital_domi_assessment/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: AppStrings.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.black),
       ),
       getPages: AppPages.routes,
       initialRoute: AppPages.INITIAL,

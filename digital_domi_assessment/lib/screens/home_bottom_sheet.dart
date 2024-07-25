@@ -1,12 +1,17 @@
+import 'package:digital_domi_assessment/constants/app_colors.dart';
+import 'package:digital_domi_assessment/constants/app_strings.dart';
 import 'package:digital_domi_assessment/controllers/documents_view_controller.dart';
 import 'package:digital_domi_assessment/widgets/cards.dart';
-import 'package:digital_domi_assessment/widgets/containers.dart';
-import 'package:digital_domi_assessment/widgets/text_fields.dart';
+import 'package:digital_domi_assessment/widgets/custom_container.dart';
+import 'package:digital_domi_assessment/widgets/custom_image.dart';
+import 'package:digital_domi_assessment/widgets/custom_text_fields.dart';
+import 'package:digital_domi_assessment/widgets/loading_shimmer.dart';
+import 'package:digital_domi_assessment/widgets/shimmer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeOverlay extends GetView<DocumentsViewController> {
-  HomeOverlay({super.key});
+class HomeBottomSheet extends GetView<DocumentsViewController> {
+  HomeBottomSheet({super.key});
 
   final List<String> _images = [
     "https://picsum.photos/250",
@@ -32,73 +37,78 @@ class HomeOverlay extends GetView<DocumentsViewController> {
                 width: 30.0,
                 height: 3.0,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: AppColors.grey,
                   borderRadius: BorderRadius.circular(24.0),
                 ),
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(16.0),
-                child: AppContainer(
-                    child: Column(
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "dōmi in",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: Colors.white,
-                          size: 16,
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: _images
-                            .map((e) => CustomImage(imageUrl: e))
-                            .toList()),
-                  ],
-                )),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(16.0),
-                child: AppContainer(
+                child: CustomContainer(
                   child: Column(
                     children: [
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "dōmi docs",
+                            AppStrings.domiDocs,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
                           ),
                           Icon(
                             Icons.arrow_forward_ios_rounded,
-                            color: Colors.white,
+                            color: AppColors.white,
                             size: 16,
-                          )
+                          ),
                         ],
                       ),
                       const SizedBox(
                         height: 12,
                       ),
-                      AppTextField(
-                          hintText: "Search docs",
-                          textEditingController: controller.searchController),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: _images
+                            .map((e) => CustomImage(imageUrl: e))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(16.0),
+                child: CustomContainer(
+                  child: Column(
+                    children: [
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppStrings.domiDocs,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: AppColors.white,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      CustomTextField(
+                        hintText: AppStrings.searchHint,
+                        textEditingController: controller.searchController,
+                      ),
                       const SizedBox(
                         height: 12,
                       ),
@@ -110,12 +120,24 @@ class HomeOverlay extends GetView<DocumentsViewController> {
                                 FileItemTile(document: document),
                               const SizedBox(
                                 height: 12,
-                              )
+                              ),
                             ],
                           );
                         },
-                        onLoading: CircularProgressIndicator(
-                          color: Colors.red,
+                        onLoading: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (_, index) {
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 8.0),
+                              child: LoadingShimmer(
+                                child: ShimmerCardUI(
+                                    width: context.width,
+                                    height: 60,
+                                    circular: 10),
+                              ),
+                            );
+                          },
                         ),
                         onError: (error) => Text(
                           error.toString(),
@@ -124,29 +146,11 @@ class HomeOverlay extends GetView<DocumentsViewController> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class CustomImage extends StatelessWidget {
-  final String imageUrl;
-  const CustomImage({super.key, required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 76,
-      width: 76,
-      decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-              image: NetworkImage(imageUrl), fit: BoxFit.cover)),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:digital_domi_assessment/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomMarker extends StatelessWidget {
@@ -13,13 +14,13 @@ class CustomMarker extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: AppColors.grey,
             shape: BoxShape.circle,
             image: DecorationImage(
               image: NetworkImage(imageUrl),
               fit: BoxFit.cover,
             ),
-            border: Border.all(color: Colors.black, width: 3),
+            border: Border.all(color: AppColors.black, width: 3),
           ),
         ),
         const InvertedTriangleContainer()
@@ -51,7 +52,7 @@ class InvertedTriangleContainer extends StatelessWidget {
     return ClipPath(
       clipper: InvertedTriangleClipper(),
       child: Container(
-        color: Colors.black,
+        color: AppColors.black,
         width: 10,
         height: 5,
       ),

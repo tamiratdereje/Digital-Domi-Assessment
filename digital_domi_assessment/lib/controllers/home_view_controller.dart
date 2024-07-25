@@ -1,5 +1,6 @@
+import 'package:digital_domi_assessment/constants/app_colors.dart';
 import 'package:digital_domi_assessment/constants/map_configs.dart';
-import 'package:digital_domi_assessment/utils/widget_to_map_icon.dart';
+import 'package:digital_domi_assessment/utils/custom_icon_generator.dart';
 import 'package:digital_domi_assessment/widgets/markers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,7 @@ class HomeViewController extends GetxController with StateMixin {
   Rx<LatLng> center = Rx<LatLng>(LatLng(MapConfig.initLat, MapConfig.initLng));
   RxSet<Marker> markers = RxSet<Marker>({});
   RxSet<Polygon> polygons = RxSet<Polygon>({});
-  final String imageUrl = 'https://picsum.photos/seed/picsum/200/300';
+  final String imageUrl = "https://picsum.photos/250";
 
   @override
   void onInit() {
@@ -20,9 +21,8 @@ class HomeViewController extends GetxController with StateMixin {
   }
 
   Future<void> setCustomMarker() async {
-    final customMarker = await CustomMarker(
-            imageUrl: 'https://picsum.photos/seed/picsum/200/300')
-        .toBitmapDescriptor(
+    final customMarker =
+        await CustomMarker(imageUrl: imageUrl).toBitmapDescriptor(
       logicalSize: const Size(60, 60),
       imageSize: const Size(120, 120),
     );
@@ -44,15 +44,15 @@ class HomeViewController extends GetxController with StateMixin {
       Polygon(
         polygonId: PolygonId(point.toString()),
         points: _generatePolygonPoints(point),
-        strokeColor: Colors.red,
-        fillColor: Colors.yellow,
+        strokeColor: AppColors.buildingColor,
+        fillColor: AppColors.buildingColor,
       ),
     );
     update();
   }
 
   List<LatLng> _generatePolygonPoints(LatLng center) {
-    double offset = 0.0001;
+    double offset = 0.00012;
     return [
       LatLng(center.latitude + offset, center.longitude + offset),
       LatLng(center.latitude + offset, center.longitude - offset),

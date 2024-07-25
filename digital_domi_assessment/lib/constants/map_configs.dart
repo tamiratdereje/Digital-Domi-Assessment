@@ -1,13 +1,13 @@
 class MapConfig {
   static const double defaultZoom = 18;
-  static const double initLat = 37.777;
-  static const double initLng = -122.4194;
+  static const double initLat = 38.9072; // Latitude for Washington, DC
+  static const double initLng = -77.0369; // Longitude for Washington, DC
   static const String mapStyle = '''[
   {
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#212121"
+        "color": "#466E92"
       }
     ]
   },
@@ -16,6 +16,15 @@ class MapConfig {
     "stylers": [
       {
         "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#FF0000" // Red color for man-made landscape (buildings)
       }
     ]
   },
@@ -40,7 +49,7 @@ class MapConfig {
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#466e92"
+        "color": "#33485E"
       }
     ]
   },
@@ -49,7 +58,7 @@ class MapConfig {
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#33485e"
+        "color": "#33485E"
       }
     ]
   },
@@ -58,7 +67,7 @@ class MapConfig {
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#59657c"
+        "color": "#515E75"
       }
     ]
   },
@@ -85,11 +94,9 @@ class MapConfig {
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#14377e"
+        "color": "#14377E"
       }
     ]
   }
-]'''
-;
-  
+]''';
 }
