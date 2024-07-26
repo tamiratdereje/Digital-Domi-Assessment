@@ -1,4 +1,4 @@
-class MapConfig {
+class MapViewConfig {
   static const double defaultZoom = 18;
   static const double initLat = 38.9072; // Latitude for Washington, DC
   static const double initLng = -77.0369; // Longitude for Washington, DC

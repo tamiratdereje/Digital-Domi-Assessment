@@ -123,13 +123,13 @@ class HomeBottomSheet extends GetView<DocumentsViewController> {
                               ),
                             ],
                           );
-                        },
+                      },
                         onLoading: ListView.builder(
                           shrinkWrap: true,
                           itemCount: 5,
                           itemBuilder: (_, index) {
                             return Container(
-                              margin: const EdgeInsets.only(bottom: 8.0),
+                              margin: const EdgeInsets.only(bottom: 8.0), 
                               child: LoadingShimmer(
                                 child: ShimmerCardUI(
                                     width: context.width,

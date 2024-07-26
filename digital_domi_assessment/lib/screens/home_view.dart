@@ -1,6 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:digital_domi_assessment/constants/app_colors.dart';
 import 'package:digital_domi_assessment/constants/app_strings.dart';
-import 'package:digital_domi_assessment/constants/map_configs.dart';
+import 'package:digital_domi_assessment/constants/map_view_configs.dart';
 import 'package:digital_domi_assessment/controllers/documents_view_controller.dart';
 import 'package:digital_domi_assessment/controllers/home_view_controller.dart';
 import 'package:digital_domi_assessment/screens/home_bottom_sheet.dart';
@@ -27,7 +29,7 @@ class HomeView extends GetView<HomeViewController> {
                 onMapCreated: controller.onMapCreated,
                 initialCameraPosition: CameraPosition(
                   target: controller.center.value,
-                  zoom: MapConfig.defaultZoom,
+                  zoom: MapViewConfig.defaultZoom,
                 ),
                 zoomControlsEnabled: false,
                 markers: controller.markers.toSet(),

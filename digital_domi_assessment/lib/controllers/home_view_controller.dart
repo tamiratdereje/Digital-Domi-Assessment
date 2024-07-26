@@ -1,5 +1,5 @@
 import 'package:digital_domi_assessment/constants/app_colors.dart';
-import 'package:digital_domi_assessment/constants/map_configs.dart';
+import 'package:digital_domi_assessment/constants/map_view_configs.dart';
 import 'package:digital_domi_assessment/utils/custom_icon_generator.dart';
 import 'package:digital_domi_assessment/widgets/markers.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class HomeViewController extends GetxController with StateMixin {
   final Rx<bool> isLoading = false.obs;
   late GoogleMapController mapController;
-  Rx<LatLng> center = Rx<LatLng>(LatLng(MapConfig.initLat, MapConfig.initLng));
+  Rx<LatLng> center = Rx<LatLng>(LatLng(MapViewConfig.initLat, MapViewConfig.initLng));
   RxSet<Marker> markers = RxSet<Marker>({});
   RxSet<Polygon> polygons = RxSet<Polygon>({});
   final String imageUrl = "https://picsum.photos/250";
@@ -43,7 +43,7 @@ class HomeViewController extends GetxController with StateMixin {
     polygons.add(
       Polygon(
         polygonId: PolygonId(point.toString()),
-        points: _generatePolygonPoints(point),
+        points: createPoints(point),
         strokeColor: AppColors.buildingColor,
         fillColor: AppColors.buildingColor,
       ),
@@ -51,18 +51,18 @@ class HomeViewController extends GetxController with StateMixin {
     update();
   }
 
-  List<LatLng> _generatePolygonPoints(LatLng center) {
+  List<LatLng> createPoints(LatLng selectedPoint) {
     double offset = 0.00012;
     return [
-      LatLng(center.latitude + offset, center.longitude + offset),
-      LatLng(center.latitude + offset, center.longitude - offset),
-      LatLng(center.latitude - offset, center.longitude - offset),
-      LatLng(center.latitude - offset, center.longitude + offset),
+      LatLng(selectedPoint.latitude + offset, selectedPoint.longitude + offset),
+      LatLng(selectedPoint.latitude + offset, selectedPoint.longitude - offset),
+      LatLng(selectedPoint.latitude - offset, selectedPoint.longitude - offset),
+      LatLng(selectedPoint.latitude - offset, selectedPoint.longitude + offset),
     ];
   }
 
   void onMapCreated(GoogleMapController controller) {
-    controller.setMapStyle(MapConfig.mapStyle);
+    controller.setMapStyle(MapViewConfig.mapStyle);
     mapController = controller;
   }
 }
